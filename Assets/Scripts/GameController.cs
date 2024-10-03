@@ -132,6 +132,12 @@ public class GameController : MonoBehaviour
             enemies = enemies.Where(item => item!= null).ToList();
             foreach (var enemy in enemies)
             {
+                LifeThing lifeThing = enemy.GetComponent<LifeThing>();
+                if (lifeThing == null || lifeThing.isAlive == false)
+                {
+                    continue;
+                }
+                
                 float x1 = enemy.transform.position.x-x, y1 = enemy.transform.position.y-y;
                 float newDistance = (float)(Math.Pow(x1, 2) +
                                             Math.Pow(y1, 2));
@@ -155,6 +161,11 @@ public class GameController : MonoBehaviour
             }
             foreach (var enemy in teammates)
             {
+                LifeThing lifeThing = enemy.GetComponent<LifeThing>();
+                if (lifeThing == null || lifeThing.isAlive == false)
+                {
+                    continue;
+                }
                 x1 = enemy.transform.position.x - x;
                 y1 = enemy.transform.position.y-y;
                 newDistance = x1 * x1 + y1 * y1;

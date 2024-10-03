@@ -31,8 +31,9 @@ public class LifeThing : ScriptParent
     private BarSlider _barSlider;
     public Dead dead;
     public bool isPlayer = false;
+    public bool isEnemy = false;
     public bool isAlive = true;
-
+    
     void Start()
     {
         health = upperLimit;
@@ -80,6 +81,7 @@ public class LifeThing : ScriptParent
 
     private IEnumerator Die()
     {
+        isAlive = false;
         yield return new WaitForSeconds(1);//模拟动画结束
         if (isPlayer)
         {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5660285028621560194}
   - component: {fileID: -7751610390127994226}
   - component: {fileID: 2312395891368164154}
+  - component: {fileID: -8983655701534421379}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Enemy
@@ -142,6 +143,7 @@ MonoBehaviour:
   visibleHealthBar: 1
   healthBar: {fileID: 3288614146822596573, guid: 8a5a7b180e3e63f4eba0d1d3069a942a, type: 3}
   uiTracker: {fileID: 0}
+  dead: {fileID: -8983655701534421379}
 --- !u!60 &-7751610390127994226
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -220,3 +222,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8983655701534421379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806591405846143960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d265a8e27b179bb4e998e298c288d70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}

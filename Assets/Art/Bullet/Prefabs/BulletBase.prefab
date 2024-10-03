@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2914633128585956840}
   - component: {fileID: -72125942685323703}
   - component: {fileID: -286317287873424974}
+  - component: {fileID: 1408541340957723683}
   m_Layer: 0
   m_Name: BulletBase
   m_TagString: Player
@@ -186,3 +187,16 @@ MonoBehaviour:
   - Enemy
   buffs: []
   multiFactor: 1
+--- !u!114 &1408541340957723683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153602535237353056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ad6e40c544bda40a156ba594afb85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  border: 17

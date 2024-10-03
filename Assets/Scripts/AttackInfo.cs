@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 攻击类的基类
 public class AttackInfo : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameController gameController;
+
     // 攻击力
     public float attackPower = 10f;
 
@@ -17,11 +19,13 @@ public class AttackInfo : MonoBehaviour
 
     // 暴击率
     public float criticalRate = 0.02f;
-    
+
     // 攻击目标
     public List<string> attackedTags;
+
     // 攻击buff
     public List<string> buffs;
+
     // 攻击系数
     public float multiFactor = 1f;
 }

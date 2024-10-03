@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// 移动的东西
 public class MoveThing : MonoBehaviour
 {
     // 移动速度
@@ -20,18 +21,20 @@ public class MoveThing : MonoBehaviour
         MoveTransform = GetComponent<Transform>();
     }
 
+    // 向目标移动
     public void Move(float goalX, float goalY)
     {
         if (!canMove)
             return;
         float x = MoveTransform.position.x, y = MoveTransform.position.y;
-        float dx = (goalX - x), dy = (goalY - y), xy = x * x + y * y;
+        float dx = (goalX - x), dy = (goalY - y), xy = (float)Math.Sqrt(x * x + y * y);
         if (xy == 0)
             return;
         MoveTransform.position = new Vector3(x + dx / xy * movementSpeed * Time.deltaTime,
             y + dy / xy * movementSpeed * Time.deltaTime);
     }
     
+    // 按键移动
     public void KeyMove()
     {
         if (!canMove) //动不了
@@ -51,6 +54,7 @@ public class MoveThing : MonoBehaviour
         MoveTransform.position = movement;
     }
 
+    // 直线移动
     public void StartMove2SomeWhere(float x,float y)
     {
         MoveTransform = GetComponent<Transform>();
@@ -61,7 +65,7 @@ public class MoveThing : MonoBehaviour
         }
         StartCoroutine(Move2SomeWhere(x, y));
     }
-    public IEnumerator Move2SomeWhere(float x,float y)
+    private IEnumerator Move2SomeWhere(float x,float y)
     {
         while (true)
         {

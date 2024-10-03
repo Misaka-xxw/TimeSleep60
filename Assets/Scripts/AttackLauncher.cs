@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
 
+// 发射子弹者
 public class AttackLauncher : AttackInfo
 {
     public List<GameObject> bullets;
@@ -32,10 +32,10 @@ public class AttackLauncher : AttackInfo
             Quaternion.identity);
         if (bullet == null)
             return;
-        var (x,y)=gameController.FindGoal(this.transform.position.x, this.transform.position.y, this.tag);
+        var (x, y) = gameController.FindGoal(this.transform.position.x, this.transform.position.y, this.tag);
         MoveThing move = bullet.GetComponent<MoveThing>();
         if (move == null)
             return;
-        move.StartMove2SomeWhere(x,y);
+        move.StartMove2SomeWhere(x, y);
     }
 }

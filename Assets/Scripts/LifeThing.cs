@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+// 有生命值的东西
 public class LifeThing : ScriptParent
 {
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class LifeThing : ScriptParent
     public UITracker uiTracker;
     private GameObject _bar;
     private BarSlider _barSlider;
+    public Dead dead;
     void Start()
     {
         health = upperLimit;
@@ -38,7 +40,7 @@ public class LifeThing : ScriptParent
             _bar.transform.parent = this.transform;
             _barSlider = _bar.GetComponent<BarSlider>();
             _barSlider.UpdateSlider(health,upperLimit);
-            uiTracker.spriteToTrack = this.gameObject.transform;
+            // uiTracker.spriteToTrack = this.gameObject.transform;
         }
     }
     public void BeAttacked(float force, string buff)
@@ -56,11 +58,31 @@ public class LifeThing : ScriptParent
                 health -= baseHurt;
                 break;
         }
-
         if (visibleHealthBar)
         {
             _barSlider.UpdateSlider(health,upperLimit);
         }
-        
+        if (health <= 0)
+        {
+            dead.Die();
+        }
+    }
+
+    public IEnumerator SelfHeal()
+    {
+        while (true)
+        {
+            if (health <= 0)
+            {
+                yield break;
+            }
+
+            if (health + 1f < upperLimit)
+            {
+                health += 1f;
+                _barSlider.UpdateSlider(health,upperLimit);
+            }
+            yield return new WaitForSeconds(1f / healingSpeed);
+        }
     }
 }

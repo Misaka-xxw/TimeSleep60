@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// 游戏控制，包括记录游戏阶段，等等
 public class GameController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -33,45 +35,91 @@ public class GameController : MonoBehaviour
     private Transform _catGirlTransform;
 
     //计时器
-    private float _timeCounter;
+    private int _timeCounter;
 
-    //模式，0为马上开始program，1为program，2为马上开始sleep，3为sleep
+    //模式，0为马上开始program，1为program，2为结束program马上开始sleep，3为sleep
     private int _mode;
-    
+    //UI切换
+    public UiController uiController;
+    public bool gameOver = false;
+    public int level = 1;
     void Start()
     {
-        _timeCounter = 0f;
-        _mode = 1;
+        gameOver = false;
+        _mode = 0;
         _catGirlTransform = catGirl.GetComponent<Transform>();
-        StartCoroutine(EnemyCreate());
+        
     }
 
     // Update is called once per frame
-    void Update()
+    
+    //移动敌人和自己
+    private IEnumerator MoveAll()
     {
-        _timeCounter += Time.deltaTime;
-        switch (_mode)
+        while (true)
         {
-            case 0: break;
-            case 1:
-                float x = _catGirlTransform.position.x, y = _catGirlTransform.transform.position.y;
-                foreach (var enemy in enemies)
+            if(_mode!=1)
+                yield break;
+            enemies = enemies.Where(item => item!= null).ToList();
+            float x = _catGirlTransform.position.x, y = _catGirlTransform.transform.position.y;
+            foreach (var enemy in enemies)
+            {
+                var enemyController = enemy.GetComponent<EnemyController>();
+                if (enemyController != null)
                 {
-                    var enemyController = enemy.GetComponent<EnemyController>();
-                    if (enemyController != null)
-                    {
-                        enemyController.Move(x, y);
-                    }
+                    enemyController.Move(x, y);
                 }
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator gameRun()
+    {
+        while (true)
+        {
+            //新一轮的开始准备
+            uiController.Mode0();
+            yield return _mode == 1;
+            //新一轮战斗
+            uiController.Mode1();
+            StartCoroutine(CountDown());
+            StartCoroutine(EnemyCreate());
+            StartCoroutine(MoveAll());
+            yield return _mode == 2;
+            uiController.Mode2();
+            if (gameOver)
+            {
+                yield break;
+            }
+            //结束过渡
+            yield return _mode == 3;
+            uiController.Mode3();
+            //time.sleep(60),升级和购买队友
+            yield return _mode == 0;
+            ++level;
 
-                break;
-            case 2: break;
-            case 3: break;
-            default:
-                break;
         }
     }
 
+    private IEnumerator CountDown()
+    {
+        _timeCounter = 60;
+        uiController.SetTime(_timeCounter);
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            _timeCounter -= 1;
+            uiController.SetTime(_timeCounter);
+            if (gameOver)
+            {
+                yield break;
+            }
+            if (_timeCounter == 0)
+            {
+                yield break;   
+            }
+        }
+    }
     public (float, float) FindGoal(float x, float y, string sTag)
     {
         float farDistance = 20000000f, resX = 0f, resY = 0f;
@@ -90,7 +138,20 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-
+        else if (sTag == "Enemy")
+        {
+            foreach (var enemy in teammates)
+            {
+                float x1 = enemy.transform.position.x-x, y1 = enemy.transform.position.y-y;
+                float newDistance = x1 * x1 + y1 * y1;
+                if (newDistance < farDistance)
+                {
+                    farDistance = newDistance;
+                    resX = x1;
+                    resY = y1;
+                }
+            }
+        }
         if (farDistance == 0)
             return (0, 0);
         farDistance = (float)Math.Sqrt(farDistance);
@@ -101,11 +162,10 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            if (_mode != 1)
+            if (_mode!=1)
             {
-                yield return null;
+                yield break;
             }
-
             int randomIndex = Random.Range(0, allEnemies.Count);
             int horizonVertical = Random.Range(0, 4);
             Vector2 v2 = Vector2.zero;
@@ -130,10 +190,14 @@ public class GameController : MonoBehaviour
                 default:
                     break;
             }
-
             GameObject cloneEnemy = Instantiate(allEnemies[randomIndex], v2, Quaternion.identity);
             enemies.Add(cloneEnemy);
             yield return new WaitForSeconds(Random.Range(1, 5));
         }
+    }
+
+    public void NextMode()
+    {
+        _mode = (_mode + 1) % 4;
     }
 }

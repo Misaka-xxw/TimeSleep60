@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// 子弹或者进程攻击
 public abstract class AttackThing : AttackInfo
 {
     void Start()

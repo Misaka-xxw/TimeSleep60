@@ -41,7 +41,7 @@ public class LifeThing : ScriptParent
         {
             _bar = Instantiate(healthBar, transform.position, Quaternion.identity);
             _bar.transform.position = this.transform.position;
-            _bar.transform.parent = this.transform;
+            _bar.transform.SetParent(this.transform);
             _barSlider = _bar.GetComponent<BarSlider>();
             _barSlider.UpdateSlider(health, upperLimit);
             // uiTracker.spriteToTrack = this.gameObject.transform;

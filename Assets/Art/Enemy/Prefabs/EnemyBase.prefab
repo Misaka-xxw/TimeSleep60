@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b982d3e2ba1a2419d841fdd4041b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveController: {fileID: 0}
-  lifeController: {fileID: 0}
+  moveController: {fileID: -9196252815044783408}
+  lifeController: {fileID: -5660285028621560194}
   attackController: {fileID: 0}
   addNum: 0
   modNum: 1
@@ -120,9 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bee9f46601343ceb7afccd0173cb8af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMovementSpeed: 5
-  movementSpeed: 5
+  baseMovementSpeed: 3
+  movementSpeed: 3
   canMove: 1
+  moveTransform: {fileID: 8645141995461518855}
 --- !u!114 &-5660285028621560194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d219f49feaec5d242bad6e293d1c76ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   creature: {fileID: 0}
   health: 0
   defense: 1
@@ -144,6 +146,8 @@ MonoBehaviour:
   healthBar: {fileID: 3288614146822596573, guid: 8a5a7b180e3e63f4eba0d1d3069a942a, type: 3}
   uiTracker: {fileID: 0}
   dead: {fileID: -8983655701534421379}
+  isPlayer: 0
+  isAlive: 1
 --- !u!60 &-7751610390127994226
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -234,4 +238,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d265a8e27b179bb4e998e298c288d70a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   animator: {fileID: 0}

@@ -14,6 +14,7 @@ public class AttackLauncher : AttackInfo
     private void Start()
     {
         _nextShootTime = 1f / attackSpeed;
+        SetGameController();
     }
 
     void Update()
@@ -26,12 +27,20 @@ public class AttackLauncher : AttackInfo
         }
     }
 
+    public IEnumerator StartShoot()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => gameController.GetMode() == 1);
+            Shoot();
+            yield return new WaitForSeconds(1f/attackSpeed);
+        }
+    }
+
     void Shoot()
     {
         var bullet = Instantiate(bullets[Random.Range(0, bullets.Count)], this.transform.position,
             Quaternion.identity);
-        if (bullet == null)
-            return;
         var (x, y) = gameController.FindGoal(this.transform.position.x, this.transform.position.y, this.tag);
         MoveThing move = bullet.GetComponent<MoveThing>();
         if (move == null)

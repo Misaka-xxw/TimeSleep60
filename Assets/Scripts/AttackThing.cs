@@ -13,7 +13,7 @@ public abstract class AttackThing : AttackInfo
     }
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.tag);
+        // Debug.Log(other.gameObject.tag);
         foreach (var attackedTag in attackedTags)
         {
             if (other.CompareTag(attackedTag))

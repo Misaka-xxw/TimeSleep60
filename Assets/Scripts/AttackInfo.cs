@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 攻击类的基类
-public class AttackInfo : MonoBehaviour
+public class AttackInfo : ScriptParent
 {
     // Start is called before the first frame update
-    public GameController gameController;
-
     // 攻击力
     public float attackPower = 10f;
 

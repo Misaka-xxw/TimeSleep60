@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // 移动的东西
 public class MoveThing : MonoBehaviour
@@ -14,11 +15,12 @@ public class MoveThing : MonoBehaviour
     public bool canMove = true;
 
     //移动
-    protected Transform MoveTransform;
-
+    public Transform moveTransform;
+    public float downLimit=1f, upLimit;
     void Start()
     {
-        MoveTransform = GetComponent<Transform>();
+        if(moveTransform==null)
+            moveTransform = GetComponent<Transform>();
     }
 
     // 向目标移动
@@ -26,11 +28,13 @@ public class MoveThing : MonoBehaviour
     {
         if (!canMove)
             return;
-        float x = MoveTransform.position.x, y = MoveTransform.position.y;
-        float dx = (goalX - x), dy = (goalY - y), xy = (float)Math.Sqrt(x * x + y * y);
+        float x = moveTransform.position.x, y = moveTransform.position.y;
+        float dx = (goalX - x), dy = (goalY - y), xy = (float)Math.Sqrt(dx * dx + dy * dy);
+        if (xy <= downLimit)
+            return;
         if (xy == 0)
             return;
-        MoveTransform.position = new Vector3(x + dx / xy * movementSpeed * Time.deltaTime,
+        moveTransform.position = new Vector3(x + dx / xy * movementSpeed * Time.deltaTime,
             y + dy / xy * movementSpeed * Time.deltaTime);
     }
     
@@ -49,19 +53,19 @@ public class MoveThing : MonoBehaviour
             return;
         }
 
-        var movement = new Vector2(MoveTransform.position.x + x / xy * movementSpeed * Time.deltaTime,
-            MoveTransform.position.y + y / xy * movementSpeed * Time.deltaTime);
-        MoveTransform.position = movement;
+        var movement = new Vector2(moveTransform.position.x + x / xy * movementSpeed * Time.deltaTime,
+            moveTransform.position.y + y / xy * movementSpeed * Time.deltaTime);
+        moveTransform.position = movement;
     }
 
     // 直线移动
     public void StartMove2SomeWhere(float x,float y)
     {
-        MoveTransform = GetComponent<Transform>();
-        if (MoveTransform == null)
+        moveTransform = GetComponent<Transform>();
+        if (moveTransform == null)
         {
             this.AddComponent<Transform>();
-            MoveTransform = GetComponent<Transform>();
+            moveTransform = GetComponent<Transform>();
         }
         StartCoroutine(Move2SomeWhere(x, y));
     }
@@ -69,8 +73,8 @@ public class MoveThing : MonoBehaviour
     {
         while (true)
         {
-            var v2 = new Vector2(MoveTransform.position.x+x*movementSpeed*Time.deltaTime,MoveTransform.position.y+y*movementSpeed*Time.deltaTime);
-            MoveTransform.position = v2;
+            var v2 = new Vector2(moveTransform.position.x+x*movementSpeed*Time.deltaTime,moveTransform.position.y+y*movementSpeed*Time.deltaTime);
+            moveTransform.position = v2;
             yield return null;
         }
     }

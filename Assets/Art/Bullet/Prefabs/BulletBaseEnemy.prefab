@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -286317287873424974}
   - component: {fileID: 1408541340957723683}
   m_Layer: 0
-  m_Name: BulletBase
+  m_Name: BulletBaseEnemy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.9899706, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.16778654, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,6 +105,8 @@ MonoBehaviour:
   movementSpeed: 4
   canMove: 1
   moveTransform: {fileID: 0}
+  downLimit: 1
+  upLimit: 0
 --- !u!58 &2914633128585956840
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,12 +182,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  attackPower: 10
+  attackPower: 1
   attackSpeed: 1
   criticalDamage: 10
   criticalRate: 0.02
   attackedTags:
-  - Enemy
+  - Teammate
+  - Player
   buffs: []
   multiFactor: 1
 --- !u!114 &1408541340957723683

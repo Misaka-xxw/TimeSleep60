@@ -30,21 +30,29 @@ public class LifeThing : ScriptParent
     private GameObject _bar;
     private BarSlider _barSlider;
     public Dead dead;
+    public bool isPlayer = false;
+    public bool isAlive = true;
+
     void Start()
     {
         health = upperLimit;
         if (visibleHealthBar)
         {
-            _bar = Instantiate(healthBar,transform.position,Quaternion.identity);
+            _bar = Instantiate(healthBar, transform.position, Quaternion.identity);
             _bar.transform.position = this.transform.position;
             _bar.transform.parent = this.transform;
             _barSlider = _bar.GetComponent<BarSlider>();
-            _barSlider.UpdateSlider(health,upperLimit);
+            _barSlider.UpdateSlider(health, upperLimit);
             // uiTracker.spriteToTrack = this.gameObject.transform;
         }
     }
+
     public void BeAttacked(float force, string buff)
     {
+        if (health <= 0)
+        {
+            return;
+        }
         float baseHurt = force / (defense + 1f);
         switch (buff)
         {
@@ -58,15 +66,31 @@ public class LifeThing : ScriptParent
                 health -= baseHurt;
                 break;
         }
+
         if (visibleHealthBar)
         {
-            _barSlider.UpdateSlider(health,upperLimit);
+            _barSlider.UpdateSlider(health, upperLimit);
         }
+
         if (health <= 0)
         {
-            dead.Die();
+            StartCoroutine(this.Die());
         }
     }
+
+    private IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1);//模拟动画结束
+        if (isPlayer)
+        {
+            Time.timeScale = 0f; //后面切换成失败结算
+            gameController.gameOver = true;
+        }
+
+        Destroy(this.gameObject);
+        yield break;
+    }
+
 
     public IEnumerator SelfHeal()
     {
@@ -80,8 +104,9 @@ public class LifeThing : ScriptParent
             if (health + 1f < upperLimit)
             {
                 health += 1f;
-                _barSlider.UpdateSlider(health,upperLimit);
+                _barSlider.UpdateSlider(health, upperLimit);
             }
+
             yield return new WaitForSeconds(1f / healingSpeed);
         }
     }

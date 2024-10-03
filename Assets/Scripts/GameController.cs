@@ -48,7 +48,8 @@ public class GameController : MonoBehaviour
         gameOver = false;
         _mode = 0;
         _catGirlTransform = catGirl.GetComponent<Transform>();
-        
+        StartCoroutine(GameRun());
+
     }
 
     // Update is called once per frame
@@ -58,7 +59,7 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            if(_mode!=1)
+            if(_mode!=1||gameOver)
                 yield break;
             enemies = enemies.Where(item => item!= null).ToList();
             float x = _catGirlTransform.position.x, y = _catGirlTransform.transform.position.y;
@@ -73,29 +74,31 @@ public class GameController : MonoBehaviour
             yield return null;
         }
     }
-    private IEnumerator gameRun()
+    private IEnumerator GameRun()
     {
         while (true)
         {
             //新一轮的开始准备
             uiController.Mode0();
-            yield return _mode == 1;
+            yield return new WaitUntil(()=>_mode==1);
+            // yield return _mode == 1;
             //新一轮战斗
-            uiController.Mode1();
+            // uiController.Mode1();
+            Debug.Log(_mode);
             StartCoroutine(CountDown());
             StartCoroutine(EnemyCreate());
             StartCoroutine(MoveAll());
-            yield return _mode == 2;
-            uiController.Mode2();
+            yield return new WaitUntil(()=>_mode==2);
             if (gameOver)
             {
                 yield break;
             }
+            uiController.Mode2();
             //结束过渡
-            yield return _mode == 3;
+            yield return new WaitUntil(()=>_mode==3);
             uiController.Mode3();
             //time.sleep(60),升级和购买队友
-            yield return _mode == 0;
+            yield return new WaitUntil(()=>_mode==0);
             ++level;
 
         }
@@ -116,6 +119,7 @@ public class GameController : MonoBehaviour
             }
             if (_timeCounter == 0)
             {
+                NextMode();
                 yield break;   
             }
         }
@@ -125,6 +129,7 @@ public class GameController : MonoBehaviour
         float farDistance = 20000000f, resX = 0f, resY = 0f;
         if (sTag == "Player" || sTag == "Teammate")
         {
+            enemies = enemies.Where(item => item!= null).ToList();
             foreach (var enemy in enemies)
             {
                 float x1 = enemy.transform.position.x-x, y1 = enemy.transform.position.y-y;
@@ -140,10 +145,19 @@ public class GameController : MonoBehaviour
         }
         else if (sTag == "Enemy")
         {
+            float x1 = catGirl.transform.position.x-x, y1 = catGirl.transform.position.y-y;
+            float newDistance = x1 * x1 + y1 * y1;
+            if (newDistance < farDistance)
+            {
+                farDistance = newDistance;
+                resX = x1;
+                resY = y1;
+            }
             foreach (var enemy in teammates)
             {
-                float x1 = enemy.transform.position.x-x, y1 = enemy.transform.position.y-y;
-                float newDistance = x1 * x1 + y1 * y1;
+                x1 = enemy.transform.position.x - x;
+                y1 = enemy.transform.position.y-y;
+                newDistance = x1 * x1 + y1 * y1;
                 if (newDistance < farDistance)
                 {
                     farDistance = newDistance;
@@ -187,8 +201,6 @@ public class GameController : MonoBehaviour
                     v2.y = -landmarks;
                     v2.x = Random.Range(-landmarks, landmarks);
                     break;
-                default:
-                    break;
             }
             GameObject cloneEnemy = Instantiate(allEnemies[randomIndex], v2, Quaternion.identity);
             enemies.Add(cloneEnemy);
@@ -199,5 +211,10 @@ public class GameController : MonoBehaviour
     public void NextMode()
     {
         _mode = (_mode + 1) % 4;
+    }
+
+    public int GetMode()
+    {
+        return _mode;
     }
 }

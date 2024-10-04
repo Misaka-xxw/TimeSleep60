@@ -981,7 +981,6 @@ MonoBehaviour:
   attackController: {fileID: 0}
   catGirlUpperLimit: 100
   catGirlHealingSpeed: 1
-  smallSpiritBar: {fileID: 1541616869}
   bigHealthBar: {fileID: 1541616869}
   bigSpiritBar: {fileID: 817442517}
 --- !u!61 &894320601
@@ -2024,7 +2023,6 @@ MonoBehaviour:
   allTeammates: []
   teammates: []
   allEnemies:
-  - {fileID: 6806591405846143960, guid: 45e4ddb794e6985488463f71f8ecec20, type: 3}
   - {fileID: 6806591405846143960, guid: dd827fb5fa78988429ef05f9e31d12c7, type: 3}
   - {fileID: 1484470876973189071, guid: a159214c8596b1146919337fb58a9de2, type: 3}
   - {fileID: 6831167106314979723, guid: 9d8c22d04984eee439f77443fa18fc51, type: 3}

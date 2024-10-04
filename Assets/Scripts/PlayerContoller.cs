@@ -12,7 +12,7 @@ public class PlayerController : Creature
     // 猫娘自愈力
     public float catGirlHealingSpeed=1f;
     private float _catGirlHealth;
-    public BarSlider smallSpiritBar, bigHealthBar, bigSpiritBar;
+    public BarSlider bigHealthBar, bigSpiritBar;
     private void Start()
     {
         _catGirlHealth = catGirlUpperLimit;
@@ -25,7 +25,6 @@ public class PlayerController : Creature
 
     private void Update()
     {
-        smallSpiritBar.UpdateSlider(_catGirlHealth,catGirlUpperLimit);
         bigSpiritBar.UpdateSlider(_catGirlHealth,catGirlUpperLimit);
         bigHealthBar.UpdateSlider(lifeController.health,lifeController.upperLimit);
         moveController.KeyMove();

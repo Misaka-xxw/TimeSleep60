@@ -45,16 +45,36 @@ public class MoveThing : MonoBehaviour
         {
             return;
         }
+        
         var x = Input.GetAxis("Horizontal"); //获取左右按键输入
         var y = Input.GetAxis("Vertical"); //获取上下按键输入
+        Debug.Log($"x={x},y={y}");
         var xy = (float)Math.Sqrt(x * x + y * y);
         if (xy == 0)
         {
             return;
         }
-
-        var movement = new Vector2(moveTransform.position.x + x / xy * movementSpeed * Time.deltaTime,
-            moveTransform.position.y + y / xy * movementSpeed * Time.deltaTime);
+        
+        float newX = moveTransform.position.x + x / xy * movementSpeed * Time.deltaTime,
+            newY =moveTransform.position.y + y / xy * movementSpeed * Time.deltaTime;
+        
+        if (newX < -downLimit)
+        {
+            newX = -downLimit;
+        }
+        else if (newX > downLimit)
+        {
+            newX = downLimit;
+        }
+        if (newY < -downLimit)
+        {
+            newY = -downLimit;
+        }
+        else if (newY > downLimit)
+        {
+            newY = downLimit;
+        }
+        var movement = new Vector2(newX,newY);
         moveTransform.position = movement;
     }
 

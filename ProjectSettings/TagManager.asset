@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Girl
+    uniqueID: 618689377
+    locked: 0

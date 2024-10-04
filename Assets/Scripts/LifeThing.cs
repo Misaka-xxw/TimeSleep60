@@ -33,6 +33,7 @@ public class LifeThing : ScriptParent
     public bool isPlayer = false;
     public bool isEnemy = false;
     public bool isAlive = true;
+    public Animator animator;
     
     void Start()
     {
@@ -82,6 +83,8 @@ public class LifeThing : ScriptParent
     private IEnumerator Die()
     {
         isAlive = false;
+        if(animator!=null)
+            animator.SetTrigger("die");
         yield return new WaitForSeconds(1);//模拟动画结束
         if (isPlayer)
         {

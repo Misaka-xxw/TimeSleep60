@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 465207924712332515}
   - component: {fileID: 1391300336963926871}
   - component: {fileID: 6361388902530299310}
+  - component: {fileID: 3526644420639263852}
   m_Layer: 5
   m_Name: 60s (1)
   m_TagString: Untagged
@@ -79,6 +80,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "     \u55B5"
+--- !u!114 &3526644420639263852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658153493115239699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &825493303310151535
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8735200423986353395}
   - component: {fileID: 7052518719329243100}
+  - component: {fileID: 4503082754164710919}
   m_Layer: 5
   m_Name: SliderHealth
   m_TagString: Untagged
@@ -490,6 +507,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4503082754164710919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417386544362818834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3059cb24f80f5804688ef19f9c4d1144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 7052518719329243100}
 --- !u!1 &4003336451423118324
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +770,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1909731357061365006}
   - {fileID: 6906774609484791238}
   - {fileID: 6258074109646759317}
   - {fileID: 5437366767470300952}
@@ -764,7 +793,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -826,6 +855,7 @@ GameObject:
   - component: {fileID: 1909731357061365006}
   - component: {fileID: 7288482719415456442}
   - component: {fileID: 5557246980175815503}
+  - component: {fileID: 7961830951598789230}
   m_Layer: 5
   m_Name: 60s
   m_TagString: Untagged
@@ -840,18 +870,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4901720412412624008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.23, y: 1.23, z: 1.23}
+  m_LocalScale: {x: 0.17723343, y: 0.17723343, z: 0.17723343}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 465207924712332515}
-  m_Father: {fileID: 4281760013009464171}
+  m_Father: {fileID: 4226369399496226301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -337, y: 465}
-  m_SizeDelta: {x: 138.9923, y: 36.02}
+  m_AnchoredPosition: {x: 4.4, y: -2.51}
+  m_SizeDelta: {x: 122.6287, y: 36.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7288482719415456442
 CanvasRenderer:
@@ -895,6 +925,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 60
+--- !u!114 &7961830951598789230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901720412412624008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5039742304286465931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1941737708223957126}
   - component: {fileID: 5649041154054562967}
+  - component: {fileID: 2156466184869385685}
   m_Layer: 5
   m_Name: spiritSlider
   m_TagString: Untagged
@@ -1246,6 +1292,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2156466184869385685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372559166382905934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3059cb24f80f5804688ef19f9c4d1144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 5649041154054562967}
 --- !u!1 &7259556284051270954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,7 +1804,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1909731357061365006}
   m_Father: {fileID: 267160096942754950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1781,8 +1841,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 511dcac125546044a82aca224faa4443, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

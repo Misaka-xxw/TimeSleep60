@@ -10,6 +10,7 @@ public class CameraFollow : ScriptParent
     public Camera camera;
     public float smoothTime = 0.2f;
     private Vector3 velocity = Vector3.zero;
+
     // void Start()
     // {
     //     xMax *= xMax;
@@ -29,13 +30,13 @@ public class CameraFollow : ScriptParent
                 y = me.position.y,
                 x1 = goal.position.x,
                 y1 = goal.position.y;
-            // if (Math.Abs(camera.transform.position.x - x1)>=xMax)
+            // if (Math.Abs(camera.transform.position.x - x1)<xMax)
             // {
-            //     x = x1;
+            //     x1=x;
             // }
-            // if (Math.Abs(camera.transform.position.y - y1)>=yMax)
+            // if (Math.Abs(camera.transform.position.y- y1)<yMax)
             // {
-            //     y = y1;
+            //      y1=y;
             // }
             
             // me.position = new Vector3(x1, y1);

@@ -15,45 +15,72 @@ public class MoveAnimate : MonoBehaviour
     public Transform girlTransform;
     public LifeThing lifeThing;
     public float downV, upV;
-    private bool _haveLifeThing;
-    private Condition _condition=Condition.LeftMove;
     public Animator animator;
+    private Condition _condition=Condition.Stop;
+    
     void Start()
     {
         girlTransform = GetComponent<Transform>();
         lifeThing = GetComponent<LifeThing>();
         animator = GetComponent<Animator>();
-        _haveLifeThing = (lifeThing != null);
+        if(lifeThing==null)
+            Destroy(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_haveLifeThing && !lifeThing.isAlive )
+        if (!lifeThing.isAlive )
         {
             Destroy(this);//去掉这个组件
         }
         var x = Input.GetAxis("Horizontal");
         if (x < downV)
         {
-            if (_condition != Condition.LeftMove)
+            switch (_condition)
             {
-                _condition = Condition.LeftMove;
-                girlTransform.localScale=new Vector3(Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                case Condition.RightMove:
+                    _condition = Condition.LeftMove;
+                    girlTransform.localScale=new Vector3(Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                    break;
+                case Condition.Stop:
+                    _condition = Condition.LeftMove;
+                    animator.SetTrigger("move");
+                    girlTransform.localScale=new Vector3(Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                    break;
+                default:
+                    break;
             }
         }
         
         else if (x>upV)
         {
-            if (_condition != Condition.RightMove)
+            switch (_condition)
             {
-                _condition = Condition.RightMove;
-                girlTransform.localScale=new Vector3(-Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                case Condition.LeftMove:
+                    _condition = Condition.RightMove;
+                    girlTransform.localScale=new Vector3(-Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                    break;
+                case Condition.Stop:
+                    _condition = Condition.RightMove;
+                    animator.SetTrigger("move");
+                    girlTransform.localScale=new Vector3(-Math.Abs(girlTransform.localScale.x),girlTransform.localScale.y);
+                    break;
+                default:
+                    break;
             }
         }
         else
         {
-            _condition = Condition.Stop;
+            if (_condition != Condition.Stop)
+            {
+                var y = Input.GetAxis("Vertical");
+                if (y > downV && y < upV)
+                {
+                    _condition = Condition.Stop;
+                    animator.SetTrigger("stop");
+                }
+            }
         }
     }
 

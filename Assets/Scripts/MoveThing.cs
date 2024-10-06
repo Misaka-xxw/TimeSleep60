@@ -48,7 +48,6 @@ public class MoveThing : MonoBehaviour
         
         var x = Input.GetAxis("Horizontal"); //获取左右按键输入
         var y = Input.GetAxis("Vertical"); //获取上下按键输入
-        Debug.Log($"x={x},y={y}");
         var xy = (float)Math.Sqrt(x * x + y * y);
         if (xy == 0)
         {

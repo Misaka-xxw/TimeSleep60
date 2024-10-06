@@ -6,9 +6,11 @@ public class UiTextBlink : MonoBehaviour
 {
     public Text text;
     public float blinkSpeed = 0.5f;
-    public float maxAlpha = 100f;
-    public float blinkTime = 0.4f;
 
+    public void changeText(string s)
+    {
+        text.text = s;
+    }
     public IEnumerator IncreaseAlpha()
     {
         while (true)
@@ -28,16 +30,11 @@ public class UiTextBlink : MonoBehaviour
             yield return null;
         }
     }
-    public IEnumerator Blink()
+    public IEnumerator Blink(float blinkTime,bool bright=true)
     {
         Color newColor = text.color;
-        newColor.a = 0f;
+        newColor.a = bright?100f:0f;
         text.color = newColor;
         yield return new WaitForSeconds(blinkTime);
-        newColor.a = 100f;
-        text.color = newColor;
-        yield return new WaitForSeconds(blinkTime);
-        newColor.a = 0f;
-        text.color = newColor;
     }
 }

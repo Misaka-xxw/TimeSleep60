@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 // 游戏控制，包括记录游戏阶段，等等
@@ -42,14 +43,23 @@ public class GameController : MonoBehaviour
     //UI切换
     public UiController uiController;
     public bool gameOver = false;
+    // 等级
     public int level = 1;
+    // 经验
+    public long experience=0;
+    public long maxexperience;
+    //经验等级的换算因子
+    public int levelMulFactor = 2;
+    public int levelAddFactor = 100;
+    //游戏轮次
+    public int round = 1;
     void Start()
     {
         gameOver = false;
         _mode = 0;
         _catGirlTransform = catGirl.GetComponent<Transform>();
+        round = 1;
         StartCoroutine(GameRun());
-
     }
 
     // Update is called once per frame
@@ -78,17 +88,20 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            //新一轮的开始准备
+            //------------------------------------------
+            //0:新一轮的开始准备
             uiController.Mode0();
             yield return new WaitUntil(()=>_mode==1);
-            // yield return _mode == 1;
-            //新一轮战斗
+            //------------------------------------------
+            //1:新一轮战斗
             // uiController.Mode1();
             Debug.Log(_mode);
             StartCoroutine(CountDown());
             StartCoroutine(EnemyCreate());
             StartCoroutine(MoveAll());
-            yield return new WaitUntil(()=>_mode==2);
+            yield return new WaitUntil(()=>_mode==2||gameOver);
+            //------------------------------------------
+            //2:过渡
             if (gameOver)
             {
                 yield break;
@@ -96,6 +109,9 @@ public class GameController : MonoBehaviour
             uiController.Mode2();
             //结束过渡
             yield return new WaitUntil(()=>_mode==3);
+            //------------------------------------------
+            //3:休息
+            StartCoroutine(CountDown());
             uiController.Mode3();
             //time.sleep(60),升级和购买队友
             yield return new WaitUntil(()=>_mode==0);
@@ -227,5 +243,11 @@ public class GameController : MonoBehaviour
     public int GetMode()
     {
         return _mode;
+    }
+
+    public void UpdateLevel()
+    {
+        maxexperience = level * level * level * levelMulFactor + levelAddFactor;
+        experience = 0;
     }
 }

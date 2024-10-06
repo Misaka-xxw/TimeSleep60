@@ -13,6 +13,7 @@ public class PlayerController : Creature
     public float catGirlHealingSpeed=1f;
     private float _catGirlHealth;
     public BarSlider bigHealthBar, bigSpiritBar;
+    
     private void Start()
     {
         _catGirlHealth = catGirlUpperLimit;
@@ -20,7 +21,6 @@ public class PlayerController : Creature
         moveController = GetComponent<MoveThing>();
         lifeController = GetComponent<LifeThing>();
         attackController = GetComponent<AttackThing>();
-        
     }
 
     private void Update()

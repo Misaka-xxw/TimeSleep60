@@ -19,11 +19,14 @@ public class AttackLauncher : AttackInfo
 
     void Update()
     {
-        _frozenTime += Time.deltaTime;
-        if (_frozenTime >= _nextShootTime)
+        if (gameController.GetMode() == 1)
         {
-            _frozenTime = 0f;
-            Shoot();
+            _frozenTime += Time.deltaTime;
+            if (_frozenTime >= _nextShootTime)
+            {
+                _frozenTime = 0f;
+                Shoot();
+            }
         }
     }
 

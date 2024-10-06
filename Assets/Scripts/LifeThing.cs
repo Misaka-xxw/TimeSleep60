@@ -34,7 +34,6 @@ public class LifeThing : ScriptParent
     public bool isEnemy = false;
     public bool isAlive = true;
     public Animator animator;
-    
     void Start()
     {
         health = upperLimit;
@@ -86,7 +85,12 @@ public class LifeThing : ScriptParent
         if(animator!=null)
             animator.SetTrigger("die");
         yield return new WaitForSeconds(1);//模拟动画结束
-        if (isPlayer)
+        if (isEnemy)
+        {
+            SetGameController();
+            
+        }
+        else if (isPlayer)
         {
             Time.timeScale = 0f; //后面切换成失败结算
             gameController.gameOver = true;

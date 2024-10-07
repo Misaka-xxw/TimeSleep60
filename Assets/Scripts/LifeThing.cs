@@ -48,6 +48,7 @@ public class LifeThing : ScriptParent
             // uiTracker.spriteToTrack = this.gameObject.transform;
         }
 
+        introduction = GetComponent<Introduction>();
         StartCoroutine(SelfHeal());
     }
 
@@ -95,21 +96,22 @@ public class LifeThing : ScriptParent
         if (isEnemy)
         {
             SetGameController();
-            
             gameController.UpdateExperience(introduction.baseMoney);
-            gameController.SetCoin(transform.position,introduction.baseMoney);
-            yield return new WaitForSeconds(1);//模拟动画结束
+            var t = GetComponent<Transform>();
+            gameController.SetCoin(t.position,introduction.baseMoney);
+            yield return new WaitForSeconds(1f);//模拟动画结束
+            
         }
         
         
         else if (isPlayer)
         {
-            yield return new WaitForSeconds(1);//模拟动画结束
+            yield return new WaitForSeconds(1f);//模拟动画结束
             gameController.Fail();
             Time.timeScale = 0f; //后面切换成失败结算
         }
-
         Destroy(this.gameObject);
+        
     }
 
 

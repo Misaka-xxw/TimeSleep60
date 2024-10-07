@@ -60,12 +60,14 @@ public class UiController : ScriptParent
     //战斗中期结算
     public void Mode2()//结束战斗
     {
-        StartCoroutine(Mode0IE());
+        StartCoroutine(Mode2IE());
     }
     private IEnumerator Mode2IE()
     {
         startProgramText.changeText("time.sleep(60)");
         yield return StartCoroutine(startProgramText.Blink(1f));
+        StartCoroutine(startProgramText.Blink(0f, false));
+        gameController.NextMode();
     }
     // time.sleep(60)
     public void Mode3()//休息
@@ -105,4 +107,5 @@ public class UiController : ScriptParent
     {
         coinText.text = $"{gameController.coins}";
     }
+    
 }

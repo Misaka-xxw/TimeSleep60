@@ -58,6 +58,7 @@ public class GameController : MonoBehaviour
     public Factors factors;
     // 金币预制体
     public GameObject coin;
+    public AudioManager audioManager;
     void Start()
     {
         UpdateExperience(0);
@@ -99,6 +100,7 @@ public class GameController : MonoBehaviour
             //------------------------------------------
             //1:新一轮战斗
             // uiController.Mode1();
+            audioManager.PlayBgm1Min();
             Debug.Log(_mode);
             StartCoroutine(CountDown());
             StartCoroutine(EnemyCreate());
@@ -115,6 +117,7 @@ public class GameController : MonoBehaviour
             yield return new WaitUntil(()=>_mode==3);
             //------------------------------------------
             //3:休息
+            audioManager.PlayBgm1Min();
             StartCoroutine(CountDown());
             uiController.Mode3();
             //time.sleep(60),升级和购买队友
@@ -128,12 +131,13 @@ public class GameController : MonoBehaviour
     {
         _timeCounter = 60;
         uiController.SetTime(_timeCounter);
+        int mode = _mode;
         while (true)
         {
             yield return new WaitForSeconds(1f);
             _timeCounter -= 1;
             uiController.SetTime(_timeCounter);
-            if (gameOver)
+            if (gameOver||mode!=_mode)
             {
                 yield break;
             }
@@ -242,6 +246,7 @@ public class GameController : MonoBehaviour
     public void NextMode()
     {
         _mode = (_mode + 1) % 4;
+        _timeCounter = 60;
     }
 
     public int GetMode()
@@ -289,7 +294,7 @@ public class GameController : MonoBehaviour
     public void SetCoin(Vector2 pos,int v)
     {
         GameObject cloneCoin = Instantiate(coin, pos, Quaternion.identity);
-        Coin value = GetComponent<Coin>();
+        Coin value = cloneCoin.GetComponent<Coin>();
         value.values = v;
     }
 }

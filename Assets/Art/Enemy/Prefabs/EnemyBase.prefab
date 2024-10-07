@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -7751610390127994226}
   - component: {fileID: 2312395891368164154}
   - component: {fileID: -8983655701534421379}
+  - component: {fileID: 4503724168991038150}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Enemy
@@ -153,6 +154,7 @@ MonoBehaviour:
   isAlive: 1
   animator: {fileID: 0}
   haveExpression: 0
+  introduction: {fileID: 0}
 --- !u!60 &-7751610390127994226
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -245,3 +247,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   animator: {fileID: 0}
+--- !u!114 &4503724168991038150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806591405846143960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1815963ff7d1cf442bc00087a7073979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
+  inShop: 0
+  isPlayer: 0
+  isEnemy: 0
+  isTeammate: 0
+  isBook: 0
+  isPet: 0
+  isItemInShop: 0
+  isItemRandomAppear: 0
+  myName: 
+  introduction: 
+  level: 1
+  baseAttackPower: 0
+  addAttackPower: 0
+  baseAttackSpeed: 0
+  addAttackSpeed: 0
+  baseCriticalRate: 0
+  addCriticalRate: 0
+  baseCriticalDamage: 0
+  addCriticalDamage: 0
+  baseMovementSpeed: 0
+  addMovementSpeed: 0
+  baseDefense: 0
+  addDefense: 0
+  health: 0
+  baseProgramUpperLimit: 0
+  addProgramUpperLimit: 0
+  baseProgramHealingSpeed: 0
+  addProgramHealingSpeed: 0
+  baseMoney: 0
+  catGirlHealth: 0
+  baseCatGirlUpperLimit: 0
+  addCatGirlUpperLimit: 0
+  baseCatGirlHealingSpeed: 0
+  addCatGirlHealingSpeed: 0
+  teammateNumber: 0

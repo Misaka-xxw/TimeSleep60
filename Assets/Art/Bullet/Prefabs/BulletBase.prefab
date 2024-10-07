@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  attackPower: 10
+  attackPower: 20
   attackSpeed: 1
   criticalDamage: 10
   criticalRate: 0.02

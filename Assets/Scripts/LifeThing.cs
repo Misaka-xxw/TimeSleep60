@@ -34,7 +34,7 @@ public class LifeThing : ScriptParent
     public bool isAlive = true;
     public Animator animator;
     public bool haveExpression;
-    
+    public Introduction introduction;
     void Start()
     {
         health = upperLimit;
@@ -47,6 +47,8 @@ public class LifeThing : ScriptParent
             _barSlider.UpdateSlider(health, upperLimit);
             // uiTracker.spriteToTrack = this.gameObject.transform;
         }
+
+        StartCoroutine(SelfHeal());
     }
 
     public void BeAttacked(float force, string buff)
@@ -74,6 +76,11 @@ public class LifeThing : ScriptParent
             _barSlider.UpdateSlider(health, upperLimit);
         }
 
+        if (isPlayer)
+        {
+            Expression expression = GetComponent<Expression>();
+            expression.Set1Second(3);
+        }
         if (health <= 0)
         {
             StartCoroutine(this.Die());
@@ -85,14 +92,19 @@ public class LifeThing : ScriptParent
         isAlive = false;
         if(animator!=null)
             animator.SetTrigger("die");
-        yield return new WaitForSeconds(1);//模拟动画结束
         if (isEnemy)
         {
             SetGameController();
             
+            gameController.UpdateExperience(introduction.baseMoney);
+            gameController.SetCoin(transform.position,introduction.baseMoney);
+            yield return new WaitForSeconds(1);//模拟动画结束
         }
+        
+        
         else if (isPlayer)
         {
+            yield return new WaitForSeconds(1);//模拟动画结束
             gameController.Fail();
             Time.timeScale = 0f; //后面切换成失败结算
         }
@@ -113,7 +125,8 @@ public class LifeThing : ScriptParent
             if (health + 1f < upperLimit)
             {
                 health += 1f;
-                _barSlider.UpdateSlider(health, upperLimit);
+                if(visibleHealthBar)
+                    _barSlider.UpdateSlider(health, upperLimit);
             }
 
             yield return new WaitForSeconds(1f / healingSpeed);

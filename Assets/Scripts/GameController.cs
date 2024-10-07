@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using Vector3 = System.Numerics.Vector3;
 
 // 游戏控制，包括记录游戏阶段，等等
 public class GameController : MonoBehaviour
@@ -56,16 +56,17 @@ public class GameController : MonoBehaviour
     public Introduction introduction;
     //换算因子和公式
     public Factors factors;
+    // 金币预制体
+    public GameObject coin;
     void Start()
     {
+        UpdateExperience(0);
         gameOver = false;
         _mode = debugMode;
         _catGirlTransform = catGirl.GetComponent<Transform>();
         round = 1;
         StartCoroutine(GameRun());
     }
-
-    // Update is called once per frame
     
     //移动敌人和自己
     private IEnumerator MoveAll()
@@ -234,7 +235,7 @@ public class GameController : MonoBehaviour
             }
             GameObject cloneEnemy = Instantiate(allEnemies[randomIndex], v2, Quaternion.identity);
             enemies.Add(cloneEnemy);
-            yield return new WaitForSeconds(Random.Range(1, 5));
+            yield return new WaitForSeconds(Random.Range(2, 6));
         }
     }
 
@@ -255,20 +256,40 @@ public class GameController : MonoBehaviour
     {
         return factors.LevelExperience(n);
     }
-    public void UpdateLevel()
+    
+    public void UpdateExperience(int n)
     {
-        introduction.level=level;
-        experience = 0;
+        experience += n * round;
+        uiController.UpdateExperience();
+        while (experience > maxexperience)
+        {
+            LevelUp();
+        }
     }
 
+    public void LevelUp()
+    {
+        experience -= maxexperience;
+        ++level;
+        maxexperience = GetMaxExperience();
+        UpdateCoin(100);
+    }
     public void UpdateCoin(int n)
     {
-        
+        coins += n * round;
+        uiController.UpdateCoin();
     }
 
     public void Fail()
     {
         gameOver = true;
         uiController.BlueScreen();
+    }
+
+    public void SetCoin(Vector2 pos,int v)
+    {
+        GameObject cloneCoin = Instantiate(coin, pos, Quaternion.identity);
+        Coin value = GetComponent<Coin>();
+        value.values = v;
     }
 }

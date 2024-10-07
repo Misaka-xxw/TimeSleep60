@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +12,13 @@ public class UiController : ScriptParent
     public List<GameObject> layouts;
     private int _layoutVisble=0;
     public GameObject buttons;
+    // 死亡
     public GameObject blueScreen;
     public Text blueRound, blueExperience;
+    // 经验和金币
+    public Text experienceText,coinText;
+    public BarSlider experienceBar;
+    
     private void Start()
     {
         gameController = GetComponent<GameController>();
@@ -90,5 +93,16 @@ public class UiController : ScriptParent
         blueScreen.SetActive(true);
         blueRound.text = $"{gameController.round}";
         blueExperience.text = $"{experience}";
+    }
+
+    public void UpdateExperience()
+    {
+        experienceText.text = $"{gameController.experience}/{gameController.maxexperience}";
+        experienceBar.UpdateSlider(gameController.experience,gameController.maxexperience);
+    }
+
+    public void UpdateCoin()
+    {
+        coinText.text = $"{gameController.coins}";
     }
 }

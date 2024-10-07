@@ -14,6 +14,7 @@ public class PlayerController : Creature
     private float _catGirlHealth;
     public BarSlider bigHealthBar, bigSpiritBar;
     public GameController gameController;
+    public Expression expression;
     private void Start()
     {
         _catGirlHealth = catGirlUpperLimit;
@@ -36,7 +37,10 @@ public class PlayerController : Creature
         {
             Coin coin=other.gameObject.GetComponent<Coin>();
             gameController.UpdateCoin(coin.values);
+            expression.Set1Second(2);
             Destroy(other.gameObject);
         }
+        
     }
+    
 }

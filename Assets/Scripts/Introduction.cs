@@ -29,18 +29,24 @@ public class Introduction : ScriptParent
     public float baseMovementSpeed;
     public float addMovementSpeed;
     // 防御力
-    public int baseDefense;
-    public int addDefense;
+    public float baseDefense;
+    public float addDefense;
+    // 生命值
+    public float health;
     // 程序上限
-    public int baseProgramUpperLimit;
-    public int addProgramUpperLimit;
+    public float baseProgramUpperLimit;
+    public float addProgramUpperLimit;
     // 程序自愈力
     public float baseProgramHealingSpeed;
     public float addProgramHealingSpeed;
+    // 敌人掉落金币（基础），队友购买所需金币（基础）
+    public int baseMoney;
     //从这里开始其它人没有，只有玩家有
-    // 猫娘上限
-    public int baseCatGirlUpperLimit;
-    public int addCatGirlUpperLimit;
+    // 精神力
+    public float catGirlHealth;
+    // 猫娘精神力上限
+    public float baseCatGirlUpperLimit;
+    public float addCatGirlUpperLimit;
     // 猫娘自愈力
     public float baseCatGirlHealingSpeed;
     public float addCatGirlHealingSpeed;

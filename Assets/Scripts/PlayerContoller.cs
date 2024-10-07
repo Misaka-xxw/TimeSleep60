@@ -13,7 +13,7 @@ public class PlayerController : Creature
     public float catGirlHealingSpeed=1f;
     private float _catGirlHealth;
     public BarSlider bigHealthBar, bigSpiritBar;
-    
+    public GameController gameController;
     private void Start()
     {
         _catGirlHealth = catGirlUpperLimit;
@@ -28,5 +28,15 @@ public class PlayerController : Creature
         bigSpiritBar.UpdateSlider(_catGirlHealth,catGirlUpperLimit);
         bigHealthBar.UpdateSlider(lifeController.health,lifeController.upperLimit);
         moveController.KeyMove();
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Coin coin=other.gameObject.GetComponent<Coin>();
+            gameController.UpdateCoin(coin.values);
+            Destroy(other.gameObject);
+        }
     }
 }

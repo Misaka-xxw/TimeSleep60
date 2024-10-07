@@ -48,15 +48,18 @@ public class GameController : MonoBehaviour
     // 经验
     public long experience=0;
     public long maxexperience;
-    //经验等级的换算因子
-    public int levelMulFactor = 2;
-    public int levelAddFactor = 100;
     //游戏轮次
     public int round = 1;
+    //debug轮次
+    public int debugMode;
+    //主角introduction
+    public Introduction introduction;
+    //换算因子和公式
+    public Factors factors;
     void Start()
     {
         gameOver = false;
-        _mode = 0;
+        _mode = debugMode;
         _catGirlTransform = catGirl.GetComponent<Transform>();
         round = 1;
         StartCoroutine(GameRun());
@@ -115,7 +118,7 @@ public class GameController : MonoBehaviour
             uiController.Mode3();
             //time.sleep(60),升级和购买队友
             yield return new WaitUntil(()=>_mode==0);
-            ++level;
+            ++round;
 
         }
     }
@@ -244,10 +247,28 @@ public class GameController : MonoBehaviour
     {
         return _mode;
     }
-
+    public long GetMaxExperience()
+    {
+        return factors.LevelExperience(level);
+    }
+    public long GetMaxExperience(int n)
+    {
+        return factors.LevelExperience(n);
+    }
     public void UpdateLevel()
     {
-        maxexperience = level * level * level * levelMulFactor + levelAddFactor;
+        introduction.level=level;
         experience = 0;
+    }
+
+    public void UpdateCoin(int n)
+    {
+        
+    }
+
+    public void Fail()
+    {
+        gameOver = true;
+        uiController.BlueScreen();
     }
 }

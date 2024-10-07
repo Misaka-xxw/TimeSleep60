@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 // 有生命值的东西
 public class LifeThing : ScriptParent
 {
-    // Start is called before the first frame update
     // 绑定角色
     public Creature creature;
 
@@ -34,6 +33,8 @@ public class LifeThing : ScriptParent
     public bool isEnemy = false;
     public bool isAlive = true;
     public Animator animator;
+    public bool haveExpression;
+    
     void Start()
     {
         health = upperLimit;
@@ -92,12 +93,11 @@ public class LifeThing : ScriptParent
         }
         else if (isPlayer)
         {
+            gameController.Fail();
             Time.timeScale = 0f; //后面切换成失败结算
-            gameController.gameOver = true;
         }
 
         Destroy(this.gameObject);
-        yield break;
     }
 
 

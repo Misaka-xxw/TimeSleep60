@@ -80,6 +80,10 @@ public class MoveAnimate : MonoBehaviour
                     _condition = Condition.Stop;
                     animator.SetTrigger("stop");
                 }
+                else
+                {
+                    animator.SetTrigger("move");
+                }
             }
         }
     }

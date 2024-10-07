@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
   m_Color: {r: 0.31536034, g: 1, b: 0.07232696, a: 1}
   m_FlipX: 0
@@ -124,6 +124,8 @@ MonoBehaviour:
   movementSpeed: 3
   canMove: 1
   moveTransform: {fileID: 8645141995461518855}
+  downLimit: 1
+  upLimit: 0
 --- !u!114 &-5660285028621560194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +149,10 @@ MonoBehaviour:
   uiTracker: {fileID: 0}
   dead: {fileID: -8983655701534421379}
   isPlayer: 0
+  isEnemy: 0
   isAlive: 1
+  animator: {fileID: 0}
+  haveExpression: 0
 --- !u!60 &-7751610390127994226
 PolygonCollider2D:
   m_ObjectHideFlags: 0

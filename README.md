@@ -43,7 +43,7 @@ This project uses the [Font Name] font. Copyright (c) 2023, GitHub https://githu
 #### 美术
 - [x] 主角人设绘制，动画K帧
 - [ ] 队友设计
-- [ ] UI设计
+- [x] UI设计
 ### 2024/10/05
 #### 策划、程序
 - [ ] 测试
@@ -51,12 +51,19 @@ This project uses the [Font Name] font. Copyright (c) 2023, GitHub https://githu
 - [ ] 根据需求加画
 #### 音乐音效
 - [ ] 音效库
-- [ ] 可行的话做bgm
+- [x] 可行的话做bgm
 ### 2024/10/06
+#### 程序美术
+-[ ] 属性升级
+-[ ] 小怪升级
+-[ ] 金币
+-[ ] 属性加点
+-[ ] 队友放置
+-[ ] 队友升级
+### 2024/10/07
 #### 策划、程序、美术、音乐
 - [ ] 联调测试
 #### 后期
-- [ ] 视频制作、游戏说明书
-
+- [ ] 视频制作、PPT、游戏说明书
 ### 未来扩展：
-- [x] 给猫娘接上AI（有现成的代码和后端喽。[AiProject github仓库](https://github.com/thetheorange/AiProject)）
+- [ ] 给猫娘接上AI（有现成的代码和后端喽。[AiProject github仓库](https://github.com/thetheorange/AiProject)）

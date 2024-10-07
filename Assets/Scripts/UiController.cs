@@ -13,6 +13,9 @@ public class UiController : ScriptParent
     public UiTextBlink startProgramText;
     public List<GameObject> layouts;
     private int _layoutVisble=0;
+    public GameObject buttons;
+    public GameObject blueScreen;
+    public Text blueRound, blueExperience;
     private void Start()
     {
         gameController = GetComponent<GameController>();
@@ -26,6 +29,8 @@ public class UiController : ScriptParent
     //战斗进行时
     public void Mode0()//开始战斗
     {
+        buttons.SetActive(false);
+        layouts[_layoutVisble].SetActive(false);
         StartCoroutine(Mode0IE());
     }
 
@@ -39,7 +44,7 @@ public class UiController : ScriptParent
         yield return StartCoroutine(startProgramText.Blink(1f));
         startProgramText.changeText("1");
         yield return StartCoroutine(startProgramText.Blink(1f));
-        startProgramText.changeText("GO!!!");
+        startProgramText.changeText("GO!!!!!");
         yield return StartCoroutine(startProgramText.Blink(1f));
         StartCoroutine(startProgramText.Blink(0f, false));
         gameController.NextMode();
@@ -52,14 +57,19 @@ public class UiController : ScriptParent
     //战斗中期结算
     public void Mode2()//结束战斗
     {
-        gameController.NextMode();
+        StartCoroutine(Mode0IE());
+    }
+    private IEnumerator Mode2IE()
+    {
+        startProgramText.changeText("time.sleep(60)");
+        yield return StartCoroutine(startProgramText.Blink(1f));
     }
     // time.sleep(60)
     public void Mode3()//休息
     {
+        buttons.SetActive(true);
         _layoutVisble = 0;
         LayoutButtonClick(0);
-        // gameController.NextMode();
     }
 
     public void LayoutButtonClick(int n)
@@ -68,5 +78,17 @@ public class UiController : ScriptParent
         layouts[_layoutVisble].SetActive(false);
         layouts[n].SetActive(true);
         _layoutVisble = n;
+    }
+
+    public void BlueScreen()
+    {
+        long experience = gameController.experience;
+        for (int i = 1; i < gameController.level; ++i)
+        {
+            experience += gameController.GetMaxExperience(i);
+        }
+        blueScreen.SetActive(true);
+        blueRound.text = $"{gameController.round}";
+        blueExperience.text = $"{experience}";
     }
 }
